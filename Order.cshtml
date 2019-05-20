@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Order";
+}
+
+<div class="jumbotron" style="background-color: rgba(91, 91, 91, .6);">
+    <div class="card card-container" style="background-color: rgba(255, 255, 255, .6);">
+        <form id="pizza" class="form-signin">
+            <img src="~/Content/Image/user.jpg" />
+            <h3> @Session["Username"].ToString(), your custom order was successfull! Your pizza will be deliverd within the next half an hour!</h3>
+        </form>
+    </div>
+    <div class="card card-container" style="background-color: rgba(255, 255, 255, .6);">
+        <h4>Your Custom pizza will be deliver by MR. Norris.</h4>
+        <img src="~/Content/Image/chuck.jpg" />
+    </div>
+</div>
+

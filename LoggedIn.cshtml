@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "LoggedIn";
+}
+
+@if (Session["UserId"] != null)
+{
+    <div class="jumbotron" style="background-color: rgba(91, 91, 91, .6); margin-top: 20px; width:800px; margin-left:170px; ">
+        <div class="jumbotron" style="background-color: rgba(255, 255, 255, .6); width:600px; margin-left:45px; margin-top: 20px; ">
+            <form id="pizza" class="form-signin">
+
+                <h1>Hello @Session["Username"].ToString()</h1>
+
+                <div class="form-group" style="width: 600px">
+
+                    <input type="checkbox" name="Small" value="15" onClick="test(this);" />
+                    Small Size Pizza (R15)
+
+                    <input type="checkbox" name="Medium" value="25" onClick="test(this);" />
+                    Medium Size Pizza (R25)
+
+                    <input type="checkbox" name="Large" value="40" onClick="test(this);" />
+                    Large Size Pizza (R40)
+                </div>
+                <div class="form-group" style=" width: 200px; margin-left: 170px">
+                    <!-- Bacon -->
+                    <input type="checkbox" name="Bacon" value="15" onClick="test(this);">Bacon (R15)<br>
+                    <!-- Cheese -->
+                    <input type="checkbox" name="Cheese" value="10" onClick="test(this);">Cheese (R10)<br>
+                    <!-- Olives -->
+                    <input type="checkbox" name="Olives" value="5" onClick="test(this);">Black olives (R5)<br>
+                    <!-- Peppers -->
+                    <input type="checkbox" name="Peppers" value="5" onClick="test(this);">Green peppers (R5)<br>
+                    <!-- Pinapple -->
+                    <input type="checkbox" name="Pineapple" value="10" onClick="test(this);">Pineapple (R10)<br>
+                    <!-- Spinache -->
+                    <input type="checkbox" name="Spinach" value="5" onClick="test(this);">Spinach (R5)<br>
+                    <!-- Pepperoni -->
+                    <input type="checkbox" name="Pepperoni" value="15" onClick="test(this);">Pepperoni (R15)<br>
+                    <!-- Mushrooms -->
+                    <input type="checkbox" name="Mushrooms" value="10" onClick="test(this);">Mushrooms (R10)<br>
+                    <!-- Onions -->
+                    <input type="checkbox" name="Onions" value="5" onClick="test(this);">Onions (R5)<br>
+                    <!-- Sausage -->
+                    <input type="checkbox" name="Sausage" value="10" onClick="test(this);">Sausage (R10)<br>
+
+                </div>
+                <div id="remember" class="checkbox" style="margin-left: 100px; background-color: rgba(140, 140, 140, .6); width: 300px; font-size: 25px">
+                    <label>
+                        Total Amount : <span id="Totalcost"> </span>
+                    </label>
+                </div>
+                <button type="button" class="btn btn-default">@Html.ActionLink("Order", "Order", "Account")</button>
+            </form><!-- /form -->
+        </div><!-- /card-container -->
+    </div><!-- /container -->
+
+    <script type="text/javascript" src="~/Scripts/Total.js"></script>
+}
+

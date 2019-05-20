@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="The_PizzatoriumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblAreas">
+          <Key>
+            <PropertyRef Name="dArea" />
+          </Key>
+          <Property Name="dArea" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblDelivery">
+          <Key>
+            <PropertyRef Name="dPhoto" />
+          </Key>
+          <Property Name="dName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="dArea" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="dPhoto" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblIngredients">
+          <Key>
+            <PropertyRef Name="dIngredient" />
+          </Key>
+          <Property Name="dIngredient" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="dCost" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblUsers">
+          <Key>
+            <PropertyRef Name="dName" />
+          </Key>
+          <Property Name="dName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="dUSerName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="dAddress" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="dPhone" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="dFavPizza" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="dPass" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <Association Name="FK__tblDelive__dArea__534D60F1">
+          <End Role="tblAreas" Type="Self.tblAreas" Multiplicity="1" />
+          <End Role="tblDelivery" Type="Self.tblDelivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAreas">
+              <PropertyRef Name="dArea" />
+            </Principal>
+            <Dependent Role="tblDelivery">
+              <PropertyRef Name="dArea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblDelive__dName__52593CB8">
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="1" />
+          <End Role="tblDelivery" Type="Self.tblDelivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="dName" />
+            </Principal>
+            <Dependent Role="tblDelivery">
+              <PropertyRef Name="dName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="The_PizzatoriumModelStoreContainer">
+          <EntitySet Name="tblAreas" EntityType="Self.tblAreas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDelivery" EntityType="Self.tblDelivery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblIngredients" EntityType="Self.tblIngredients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblDelive__dArea__534D60F1" Association="Self.FK__tblDelive__dArea__534D60F1">
+            <End Role="tblAreas" EntitySet="tblAreas" />
+            <End Role="tblDelivery" EntitySet="tblDelivery" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblDelive__dName__52593CB8" Association="Self.FK__tblDelive__dName__52593CB8">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblDelivery" EntitySet="tblDelivery" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="The_PizzatoriumModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblArea">
+          <Key>
+            <PropertyRef Name="dArea" />
+          </Key>
+          <Property Name="dArea" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblDeliveries" Relationship="Self.FK__tblDelive__dArea__534D60F1" FromRole="tblAreas" ToRole="tblDelivery" />
+        </EntityType>
+        <EntityType Name="tblDelivery">
+          <Key>
+            <PropertyRef Name="dPhoto" />
+          </Key>
+          <Property Name="dName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dArea" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dPhoto" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblArea" Relationship="Self.FK__tblDelive__dArea__534D60F1" FromRole="tblDelivery" ToRole="tblAreas" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK__tblDelive__dName__52593CB8" FromRole="tblDelivery" ToRole="tblUsers" />
+        </EntityType>
+        <EntityType Name="tblIngredient">
+          <Key>
+            <PropertyRef Name="dIngredient" />
+          </Key>
+          <Property Name="dIngredient" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dCost" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="dName" />
+          </Key>
+          <Property Name="dName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dUSerName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dFavPizza" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dPass" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblDeliveries" Relationship="Self.FK__tblDelive__dName__52593CB8" FromRole="tblUsers" ToRole="tblDelivery" />
+        </EntityType>
+        <Association Name="FK__tblDelive__dArea__534D60F1">
+          <End Role="tblAreas" Type="Self.tblArea" Multiplicity="1" />
+          <End Role="tblDelivery" Type="Self.tblDelivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAreas">
+              <PropertyRef Name="dArea" />
+            </Principal>
+            <Dependent Role="tblDelivery">
+              <PropertyRef Name="dArea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblDelive__dName__52593CB8">
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="1" />
+          <End Role="tblDelivery" Type="Self.tblDelivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="dName" />
+            </Principal>
+            <Dependent Role="tblDelivery">
+              <PropertyRef Name="dName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="The_PizzatoriumEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblAreas" EntityType="Self.tblArea" />
+          <EntitySet Name="tblDeliveries" EntityType="Self.tblDelivery" />
+          <EntitySet Name="tblIngredients" EntityType="Self.tblIngredient" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+          <AssociationSet Name="FK__tblDelive__dArea__534D60F1" Association="Self.FK__tblDelive__dArea__534D60F1">
+            <End Role="tblAreas" EntitySet="tblAreas" />
+            <End Role="tblDelivery" EntitySet="tblDeliveries" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblDelive__dName__52593CB8" Association="Self.FK__tblDelive__dName__52593CB8">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblDelivery" EntitySet="tblDeliveries" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="The_PizzatoriumModelStoreContainer" CdmEntityContainer="The_PizzatoriumEntities2">
+          <EntitySetMapping Name="tblAreas">
+            <EntityTypeMapping TypeName="The_PizzatoriumModel.tblArea">
+              <MappingFragment StoreEntitySet="tblAreas">
+                <ScalarProperty Name="dArea" ColumnName="dArea" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDeliveries">
+            <EntityTypeMapping TypeName="The_PizzatoriumModel.tblDelivery">
+              <MappingFragment StoreEntitySet="tblDelivery">
+                <ScalarProperty Name="dName" ColumnName="dName" />
+                <ScalarProperty Name="dArea" ColumnName="dArea" />
+                <ScalarProperty Name="dPhoto" ColumnName="dPhoto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblIngredients">
+            <EntityTypeMapping TypeName="The_PizzatoriumModel.tblIngredient">
+              <MappingFragment StoreEntitySet="tblIngredients">
+                <ScalarProperty Name="dIngredient" ColumnName="dIngredient" />
+                <ScalarProperty Name="dCost" ColumnName="dCost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="The_PizzatoriumModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUsers">
+                <ScalarProperty Name="dName" ColumnName="dName" />
+                <ScalarProperty Name="dUSerName" ColumnName="dUSerName" />
+                <ScalarProperty Name="dAddress" ColumnName="dAddress" />
+                <ScalarProperty Name="dPhone" ColumnName="dPhone" />
+                <ScalarProperty Name="dFavPizza" ColumnName="dFavPizza" />
+                <ScalarProperty Name="dPass" ColumnName="dPass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
